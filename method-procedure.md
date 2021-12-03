@@ -13,3 +13,8 @@
 - [x] Create GitHub repository for the project
 - [ ] Outline project goals 
 - [ ] Outline preliminary test cases to guide the project
+
+**Development**
+
+- [ ] Set up a basic web server to host the project on
+- [ ] Create the simple single-factor authentication sign on service
