@@ -7,5 +7,8 @@
 
 **Pre-Development**
 
-1. First thing
-- [x] Second thing
+- [ ] Brainstorm & discuss the potential methods of authentication
+- [ ] Select a method of authentication for use
+  + Selected: SMS Authentication
+- [ ] Create GitHub repository for the project
+- [ ] Outline project goals 
