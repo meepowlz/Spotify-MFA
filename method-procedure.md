@@ -7,8 +7,9 @@
 
 **Pre-Development**
 
-- [ ] Brainstorm & discuss the potential methods of authentication
-- [ ] Select a method of authentication for use
+- [x] Brainstorm & discuss the potential methods of authentication
+- [x] Select a method of authentication for use
   + Selected: SMS Authentication
-- [ ] Create GitHub repository for the project
+- [x] Create GitHub repository for the project
 - [ ] Outline project goals 
+- [ ] Outline preliminary test cases to guide the project
