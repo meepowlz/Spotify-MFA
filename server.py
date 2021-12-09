@@ -15,5 +15,9 @@ def login_route():
 def landing_route():
 	return "Login Successful. Landing page"
 
+# @app.route("/404")
+# def error_route():
+# 	return "Page not found"
+
 app.run(host="localhost", port=port)
 
