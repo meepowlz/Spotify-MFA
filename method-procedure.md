@@ -19,4 +19,9 @@
 
 - [x] Set up a basic web server to host the project on
 - [ ] Create the simple single-factor authentication sign on service
-- [ ] Implement SMS communication system?
+- [ ] Implement SMS communication system
+
+**Discussion**
+
+- [ ] Create a plan for making progress for the week of 1/3/22
+- [ ] Ask about Twilio for Python / SMS communication [Link to Twilio](https://www.twilio.com/docs/sms/send-messages)
