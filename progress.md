@@ -12,6 +12,8 @@
 ## Week of 01/03/2022
 
 + Stages of project outlined for the month of January
++ Twilio and Authy SMS (or PyOTP) decided on for use in the authentication process
++ Twilio account & phone number set up
 
 ***
 
