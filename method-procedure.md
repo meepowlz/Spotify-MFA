@@ -18,10 +18,11 @@
 **Development**
 
 - [x] Set up a basic web server to host the project on
-- [ ] Set up Twilio & have a successful message get sent
-- [ ] Set up Authy SMS with Twilio
+- [ ] Create the simple single-factor authentication sign on service
+- [ ] Implement SMS communication system
 
 **Discussion**
 
+- [ ] Create a plan for making progress for the week of 1/3/22
 - [x] Ask about Twilio for Python / SMS communication [Link to Twilio](https://www.twilio.com/docs/sms/send-messages)
 - [x] Ask about PyOTP for generating passcodes [Link to PyOTP](https://pyauth.github.io/pyotp/)
