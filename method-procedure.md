@@ -18,8 +18,8 @@
 **Development**
 
 - [x] Set up a basic web server to host the project on
-- [ ] Create the simple single-factor authentication sign on service
-- [ ] Implement SMS communication system
+- [ ] Set up Twilio & have it successfully send a message
+- [ ] Have Twilio send an authentication code
 
 **Discussion**
 
