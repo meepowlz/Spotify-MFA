@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, render_template, request
 from twilio.rest import Client
 import os
@@ -9,12 +10,13 @@ account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
 
-message = client.messages.create(
-    to=os.getenv("RECEIVING_NUM"),
-    from_=os.getenv("TWILIO_NUM"),
-    body="Hello from Python!")
+def send_message(message_text):
+	message = client.messages.create(
+		to=os.getenv("RECEIVING_NUM"),
+		from_=os.getenv("TWILIO_NUM"),
+		body=message_text)
 
-print(message.sid)
+	print(message.sid)
 
 app = Flask(__name__)
 port = 8080
@@ -29,8 +31,9 @@ def home_route():
 def login_route():
 	if request.method == "GET":
 		return render_template("login.html")
-	print(request.form["username"], request.form["password"])
-	return "Login Successful"
+	account_string = "Username " + request.form["username"] + " logged in."
+	send_message(account_string)
+	return flask.redirect("/landing")
 
 
 @app.route("/landing")
