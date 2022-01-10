@@ -10,8 +10,8 @@ auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
 
 message = client.messages.create(
-    to="+18134822530",
-    from_="+12512988473",
+    to=os.getenv("MICHELLE_NUM"),
+    from_=os.getenv("TWILIO_NUM"),
     body="Hello from Python!")
 
 print(message.sid)
