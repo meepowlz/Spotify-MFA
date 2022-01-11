@@ -13,11 +13,11 @@ client = Client(account_sid, auth_token)
 
 # code snippet from https://www.twilio.com/docs/verify/api/verification
 # sends a verification code to the receiving number
-def send_code():
+def send_code(receiving_num):
 	verification = client.verify \
 		.services(os.getenv("VERIFICATION_SID")) \
 		.verifications \
-		.create(to=os.getenv("RECEIVING_NUM"), channel="sms")
+		.create(to=receiving_num, channel="sms")
 
 	print(verification.sid)
 
@@ -31,10 +31,15 @@ def check_code(code_input):
 		.create(to=os.getenv("RECEIVING_NUM"), code=code_input)
 
 	print(verification_check.status)
+	if verification_check.status == "approved":
+		return True
+	else:
+		return False
 
 
 # code snippet from https://www.twilio.com/docs/sms/send-messages
 # sends an sms message
+# just for testing !!
 def send_message(message_text):
 	message = client.messages.create(
 		to=os.getenv("RECEIVING_NUM"),
@@ -58,17 +63,20 @@ def login_route():
 	if request.method == "GET":
 		return render_template("login.html")
 	else:
-		send_code()
+		send_code(request.form["mobile_number"])
 		return flask.redirect("/authenticate")
+
 
 @app.route("/authenticate", methods=["GET", "POST"])
 def authenticate_route():
 	if request.method == "GET":
 		return render_template("authenticate.html")
 	else:
-		user_input = request.form["code_textbox"]
-		check_code(user_input)
-		return flask.redirect("/landing")
+		verification_status = check_code(request.form["code_textbox"])
+		if verification_status:
+			return flask.redirect("/landing")
+		else:
+			return render_template("authenticate.html", auth_status="Authentication failed")
 
 
 @app.route("/landing")
