@@ -10,9 +10,10 @@ account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
 
-# from https://www.twilio.com/docs/verify/api/verification
+
+# code snippet from https://www.twilio.com/docs/verify/api/verification
 # sends a verification code to the receiving number
-def sendCode():
+def send_code():
 	verification = client.verify \
 		.services(os.getenv("VERIFICATION_SID")) \
 		.verifications \
@@ -20,21 +21,20 @@ def sendCode():
 
 	print(verification.sid)
 
-# from https://www.twilio.com/docs/verify/api/verification-check
-# something up on line 26? these docs do not make sense
-def checkCode(code_input):
+
+# code snippet from https://www.twilio.com/docs/verify/api/verification-check
+# checks sms verification
+def check_code(code_input):
 	verification_check = client.verify \
 		.services(os.getenv("VERIFICATION_SID")) \
 		.verification_checks \
-		.create(verification_sid=os.getenv("VERIFICATION_SID"), code=code_input)
+		.create(to=os.getenv("RECEIVING_NUM"), code=code_input)
 
 	print(verification_check.status)
 
-sendCode()
-code_input = input("Enter code: ")
-checkCode(code_input)
 
-
+# code snippet from https://www.twilio.com/docs/sms/send-messages
+# sends an sms message
 def send_message(message_text):
 	message = client.messages.create(
 		to=os.getenv("RECEIVING_NUM"),
@@ -50,16 +50,25 @@ port = 8080
 
 @app.route("/")
 def home_route():
-	return render_template("base.html")
+	return flask.redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login_route():
 	if request.method == "GET":
 		return render_template("login.html")
-	account_string = "Username " + request.form["username"] + " logged in."
-	send_message(account_string)
-	return flask.redirect("/landing")
+	else:
+		send_code()
+		return flask.redirect("/authenticate")
+
+@app.route("/authenticate", methods=["GET", "POST"])
+def authenticate_route():
+	if request.method == "GET":
+		return render_template("authenticate.html")
+	else:
+		user_input = request.form["code_textbox"]
+		check_code(user_input)
+		return flask.redirect("/landing")
 
 
 @app.route("/landing")
