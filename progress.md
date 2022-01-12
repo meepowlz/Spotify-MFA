@@ -19,6 +19,12 @@
 
 ## Week of 01/10/2022
 
++ Twilio used to send text messages successfully
++ Authentication page set up
++ Twilio used to send dynamic authentication codes
++ Twilio used to verify authentication codes
++ Unsuccessful authentication attempts prompts error message 
+
 ***
 
 ## Week of 01/10/2022

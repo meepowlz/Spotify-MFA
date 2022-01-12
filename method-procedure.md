@@ -12,11 +12,12 @@
   + Selected: SMS Authentication
 - [x] Create GitHub repository for the project
 - [x] Determine resources needed for project
-- [ ] Outline project goals 
+- [x] Outline project goals 
 - [ ] Outline preliminary test cases to guide the project
 
 **Development**
 
 - [x] Set up a basic web server to host the project on
-- [ ] Set up Twilio & have it successfully send a message
-- [ ] Have Twilio send an authentication code
+- [x] Set up Twilio & have it successfully send a message
+- [x] Have Twilio send an authentication code
+- [ ] Fix so other phone numbers can work?
