@@ -6,7 +6,7 @@ A conceptual program for implementing 2-Factor Authentication into Spotify
 **Feature log**
 
 + Web server is accessible at localhost:8080
-+ Home, login, and landing pages
++ Home, login, authentication and landing pages
 
 **Notes**
 
