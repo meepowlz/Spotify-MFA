@@ -68,14 +68,15 @@ port = 8080
 # Fix: needs to stop if on the correct page
 # Fix: needs to actually redirect
 def check_session(page):
-	print(session["username"])
-	print(session["verified"])
-	if not session.get("username") and page != "login":
-		print("Redirected to login")
-		return flask.redirect("/login")
-	elif not session.get("verified") and page != "authenticate":
-		print("Redirected to authenticate")
-		return flask.redirect("/authenticate")
+	print(session.get("username"))
+	if not session.get("username"):
+		if page != "login":
+			print("Redirected to login")
+			return flask.redirect("/login")
+	elif not session.get("verified"):
+		if page != "authenticate":
+			print("Redirected to authenticate")
+			return flask.redirect("/authenticate")
 	elif page != "landing":
 		print("Redirected to landing")
 		return flask.redirect("/landing")
