@@ -65,34 +65,33 @@ port = 8080
 
 
 # Checks if a user is logged in or authenticated at each page
-# can this be used to minimize code footprint w/o a redirect issue?
-def check_session():
-	if not session.get("username"):
+# Fix: needs to stop if on the correct page
+# Fix: needs to actually redirect
+def check_session(page):
+	print(session["username"])
+	print(session["verified"])
+	if not session.get("username") and page != "login":
+		print("Redirected to login")
 		return flask.redirect("/login")
-	elif not session.get("verified"):
+	elif not session.get("verified") and page != "authenticate":
+		print("Redirected to authenticate")
 		return flask.redirect("/authenticate")
-	else:
-		return flask.redirect("landing")
+	elif page != "landing":
+		print("Redirected to landing")
+		return flask.redirect("/landing")
 
 
 @app.route("/")
 def home_route():
-	if not session.get("username"):
-		return flask.redirect("/login")
-	elif not session.get("verified"):
-		return flask.redirect("/authenticate")
-	else:
-		return flask.redirect("landing")
+	return check_session("home")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login_route():
-	if session.get("username"):
-		return flask.redirect("/authenticate")
+	check_session("login")
 	if request.method == "POST":
 		# Saves username
 		session["username"] = request.form.get("username")
-		session["password"] = request.form.get("password") # figure out the security ramifications of this
 		# Sends 6-digit verification code
 		send_code(request.form["mobile_number"])
 		return flask.redirect("/authenticate")
@@ -101,27 +100,20 @@ def login_route():
 
 @app.route("/authenticate", methods=["GET", "POST"])
 def authenticate_route():
-	if request.method == "GET":
-		if not session.get("username"):
-			return flask.redirect("/login")
-		elif session.get("verified"):
-			return flask.redirect("/landing")
-		return render_template("authenticate.html")
-	else:
+	check_session("authenticate")
+	if request.method == "POST":
 		verification_status = check_code(request.form["code_textbox"])
 		if verification_status:
 			session["verified"] = True
 			return flask.redirect("/landing")
 		else:
 			return render_template("authenticate.html", auth_status="Authentication failed")
+	return render_template("authenticate.html")
 
 
 @app.route("/landing")
 def landing_route():
-	if not session.get("username"):
-		return flask.redirect("/login")
-	if not session.get("verified"):
-		return flask.redirect("/authenticate") # Should it redirect here..?
+	check_session("landing")
 	return render_template("landing.html")
 
 
@@ -129,7 +121,7 @@ def landing_route():
 def logout_route():
 	session["username"] = None
 	session["password"] = None
-	session["verified"] = False # should this be none?
+	session["verified"] = False  # should this be none?
 	return flask.redirect("/")
 
 
