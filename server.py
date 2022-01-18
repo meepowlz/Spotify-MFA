@@ -87,12 +87,14 @@ def home_route():
 
 @app.route("/login", methods=["GET", "POST"])
 def login_route():
+	if session.get("username"):
+		return flask.redirect("/authenticate")
 	if request.method == "POST":
 		# Saves username
 		session["username"] = request.form.get("username")
 		session["password"] = request.form.get("password") # figure out the security ramifications of this
-		# Disabled code sending until login finalized
-		# send_code(request.form["mobile_number"])
+		# Sends 6-digit verification code
+		send_code(request.form["mobile_number"])
 		return flask.redirect("/authenticate")
 	return render_template("login.html")
 
@@ -103,7 +105,7 @@ def authenticate_route():
 		if not session.get("username"):
 			return flask.redirect("/login")
 		elif session.get("verified"):
-			flask.redirect("/landing")
+			return flask.redirect("/landing")
 		return render_template("authenticate.html")
 	else:
 		verification_status = check_code(request.form["code_textbox"])
