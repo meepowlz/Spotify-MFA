@@ -27,11 +27,9 @@
 
 ***
 
-## Week of 01/10/2022
-
-***
-
 ## Week of 01/17/2022
+
++ Began implementing Flask Sessions to store user login information
 
 ***
 
