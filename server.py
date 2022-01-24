@@ -70,22 +70,23 @@ port = 8080
 # Checks if a user is logged in or authenticated at each page
 # Fix: needs to stop if on the correct page
 def check_session(page):
-	@wraps
-	def wrapper(function):
-		print(session.get("username"))
-		if not session.get("username"):
-			if page != "login":
-				print("Redirected to login")
-				return flask.redirect(url_for("login_route"))
-		elif not session.get("verified"):
-			if page != "authenticate":
-				print("Redirected to authenticate")
-				return flask.redirect(url_for("authenticate"))
-		elif page != "landing":
-			print("Redirected to landing")
-			return flask.redirect(url_for("landing"))
-		return function()
-	return wrapper
+	def decorator(function):
+		@wraps(function)
+		def wrapper():
+			print(session.get("username"))
+			if not session.get("username"):
+				if page != "login":
+					print("Redirected to login")
+					return flask.redirect(url_for("login_route"))
+			elif not session.get("verified"):
+				if page != "authenticate":
+					print("Redirected to authenticate")
+					return flask.redirect(url_for("authenticate"))
+			elif page != "landing":
+				print("Redirected to landing")
+				return flask.redirect(url_for("landing"))
+			return function()
+		return wrapper
 
 
 @app.route("/")
@@ -97,7 +98,7 @@ def home_route():
 
 
 @app.route("/login", methods=["GET", "POST"])
-#@check_session
+# @check_session
 def login_route(page="login"):
 	if request.method == "POST":
 		# Saves username
@@ -137,4 +138,3 @@ def logout_route():
 
 
 app.run(host="localhost", port=port)
-
