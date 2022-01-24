@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, url_for
 from flask_session import Session
 from twilio.rest import Client
 import os
@@ -69,38 +69,36 @@ port = 8080
 # Decorator for ensuring user is in an active session
 # Checks if a user is logged in or authenticated at each page
 # Fix: needs to stop if on the correct page
-# Fix: needs to actually redirect
-def check_session(function):
-	@wraps(function)
-	def wrapper():
+def check_session(page):
+	def wrapper(function):
 		function()
-		page = "login"
 		print(session.get("username"))
 		if not session.get("username"):
 			if page != "login":
 				print("Redirected to login")
-				return flask.redirect("/login")
+				return flask.redirect(url_for("login_route"))
 		elif not session.get("verified"):
 			if page != "authenticate":
 				print("Redirected to authenticate")
-				return flask.redirect("/authenticate")
+				return flask.redirect(url_for("authenticate"))
 		elif page != "landing":
 			print("Redirected to landing")
-			return flask.redirect("/landing")
+			return flask.redirect(url_for("landing"))
 		return function()
-
 	return wrapper
 
 
 @app.route("/")
-@check_session
+@check_session(page="home")
 def home_route():
+	# resets session (temporary)
+	session["username"] = None
 	return render_template("base.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
-@check_session
-def login_route():
+#@check_session
+def login_route(page="login"):
 	if request.method == "POST":
 		# Saves username
 		session["username"] = request.form.get("username")
