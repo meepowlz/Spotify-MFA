@@ -58,6 +58,7 @@ def send_message(message_text):
 
 
 # Flask application
+# Add secret key?
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -81,12 +82,15 @@ def check_session(page):
 			elif not session.get("verified"):
 				if page != "authenticate":
 					print("Redirected to authenticate")
-					return flask.redirect(url_for("authenticate"))
+					return flask.redirect(url_for("authenticate_route"))
+			elif page == "logout":
+				return function()
 			elif page != "landing":
 				print("Redirected to landing")
-				return flask.redirect(url_for("landing"))
+				return flask.redirect(url_for("landing_route"))
 			return function()
 		return wrapper
+	return decorator
 
 
 @app.route("/")
@@ -98,7 +102,7 @@ def home_route():
 
 
 @app.route("/login", methods=["GET", "POST"])
-# @check_session
+@check_session(page="login")
 def login_route(page="login"):
 	if request.method == "POST":
 		# Saves username
@@ -110,7 +114,7 @@ def login_route(page="login"):
 
 
 @app.route("/authenticate", methods=["GET", "POST"])
-@check_session
+@check_session(page="authenticate")
 def authenticate_route():
 	if request.method == "POST":
 		verification_status = check_code(request.form["code_textbox"])
@@ -123,13 +127,13 @@ def authenticate_route():
 
 
 @app.route("/landing")
-@check_session
+@check_session(page="landing")
 def landing_route():
 	return render_template("landing.html")
 
 
 @app.route("/logout")
-@check_session
+@check_session(page="logout")
 def logout_route():
 	session["username"] = None
 	session["password"] = None
