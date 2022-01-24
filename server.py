@@ -4,6 +4,8 @@ from flask_session import Session
 from twilio.rest import Client
 import os
 from dotenv import load_dotenv
+from functools import wraps
+
 
 # Allows environment variables to be accessed
 load_dotenv()
@@ -64,32 +66,41 @@ Session(app)
 port = 8080
 
 
+# Decorator for ensuring user is in an active session
 # Checks if a user is logged in or authenticated at each page
 # Fix: needs to stop if on the correct page
 # Fix: needs to actually redirect
-def check_session(page):
-	print(session.get("username"))
-	if not session.get("username"):
-		if page != "login":
-			print("Redirected to login")
-			return flask.redirect("/login")
-	elif not session.get("verified"):
-		if page != "authenticate":
-			print("Redirected to authenticate")
-			return flask.redirect("/authenticate")
-	elif page != "landing":
-		print("Redirected to landing")
-		return flask.redirect("/landing")
+def check_session(function):
+	@wraps(function)
+	def wrapper():
+		function()
+		page = "login"
+		print(session.get("username"))
+		if not session.get("username"):
+			if page != "login":
+				print("Redirected to login")
+				return flask.redirect("/login")
+		elif not session.get("verified"):
+			if page != "authenticate":
+				print("Redirected to authenticate")
+				return flask.redirect("/authenticate")
+		elif page != "landing":
+			print("Redirected to landing")
+			return flask.redirect("/landing")
+		return function()
+
+	return wrapper
 
 
 @app.route("/")
+@check_session
 def home_route():
-	return check_session("home")
+	return render_template("base.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
+@check_session
 def login_route():
-	check_session("login")
 	if request.method == "POST":
 		# Saves username
 		session["username"] = request.form.get("username")
@@ -100,8 +111,8 @@ def login_route():
 
 
 @app.route("/authenticate", methods=["GET", "POST"])
+@check_session
 def authenticate_route():
-	check_session("authenticate")
 	if request.method == "POST":
 		verification_status = check_code(request.form["code_textbox"])
 		if verification_status:
@@ -113,12 +124,13 @@ def authenticate_route():
 
 
 @app.route("/landing")
+@check_session
 def landing_route():
-	check_session("landing")
 	return render_template("landing.html")
 
 
 @app.route("/logout")
+@check_session
 def logout_route():
 	session["username"] = None
 	session["password"] = None
