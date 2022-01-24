@@ -30,6 +30,7 @@
 ## Week of 01/17/2022
 
 + Began implementing Flask Sessions to store user login information
++ Decorators were attempted
 
 ***
 
