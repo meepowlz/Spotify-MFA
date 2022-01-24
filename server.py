@@ -70,8 +70,8 @@ port = 8080
 # Checks if a user is logged in or authenticated at each page
 # Fix: needs to stop if on the correct page
 def check_session(page):
+	@wraps
 	def wrapper(function):
-		function()
 		print(session.get("username"))
 		if not session.get("username"):
 			if page != "login":
