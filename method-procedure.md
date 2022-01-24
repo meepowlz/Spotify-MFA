@@ -21,3 +21,5 @@
 - [x] Set up Twilio & have it successfully send a message
 - [x] Have Twilio send an authentication code
 - [ ] Fix so other phone numbers can work?
+- [ ] Ensure the session gets reset on application load?
+- [ ] Work on secret keys, cookies, and storing user data

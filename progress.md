@@ -36,6 +36,8 @@
 
 ## Week of 01/24/2022
 
++ Decorator successfully functioning for redirecting user if they are not logged in
+
 ***
 
 ## Week of 01/31/2022
