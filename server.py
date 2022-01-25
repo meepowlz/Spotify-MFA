@@ -46,7 +46,7 @@ def check_code(code_input):
 
 
 # code snippet from https://www.twilio.com/docs/sms/send-messages
-# sends an sms message
+# sends a sms message
 # just for testing !!
 def send_message(message_text):
 	message = client.messages.create(
@@ -103,7 +103,7 @@ def home_route():
 
 @app.route("/login", methods=["GET", "POST"])
 @check_session(page="login")
-def login_route(page="login"):
+def login_route():
 	if request.method == "POST":
 		# Saves username
 		session["username"] = request.form.get("username")
