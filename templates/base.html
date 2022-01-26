@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Spotify Conceptual 2-FA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
 <!-- Some sort of header here -->
@@ -10,4 +12,38 @@
 
 {% endblock %}
 </body>
+    <!--
+    JavaScript for mobile number input from
+    https://www.twilio.com/blog/international-phone-number-input-html-javascript
+    JavaScript for mobile number validation from
+    https://www.twilio.com/blog/validate-phone-number-input
+    -->
+    {% block javascript %}
+    <script>
+        const phoneInputField = document.querySelector("#mobile_number");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+           preferredCountries: ["us", "gb", "mx", "ca", "au"],
+           utilsScript:
+           "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        const info = document.querySelector(".alert-info");
+        function process(event) {
+            event.preventDefault();
+
+            const phoneNumber = phoneInput.getNumber();
+
+            info.style.display = "none";
+            error.style.display = "none";
+            if (phoneInput.isValidNumber()) {
+                info.style.display = "";
+                info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+            } else {
+               error.style.display = "";
+               error.innerHTML = `Invalid phone number.`;
+            }
+        }
+
+     </script>
+    {% endblock %}
 </html>
