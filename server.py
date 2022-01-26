@@ -45,18 +45,6 @@ def check_code(code_input):
 		return False
 
 
-# code snippet from https://www.twilio.com/docs/sms/send-messages
-# sends a sms message
-# just for testing !!
-def send_message(message_text):
-	message = client.messages.create(
-		to=os.getenv("RECEIVING_NUM"),
-		from_=os.getenv("TWILIO_NUM"),
-		body=message_text)
-
-	print(message.sid)
-
-
 # Flask application
 # Add secret key?
 
@@ -118,6 +106,7 @@ def login_route():
 @check_session(page="authenticate")
 def authenticate_route():
 	if request.method == "POST":
+		# Attempts to verify code input
 		verification_status = check_code(request.form["code_textbox"])
 		if verification_status:
 			session["verified"] = True
