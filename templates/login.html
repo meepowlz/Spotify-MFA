@@ -7,9 +7,42 @@
     <input type="text" name="username" placeholder="Username">
     <input type="password" name="password" placeholder="Password">
     <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
-    <input type="submit" name="Login" value="Login">
+    <input type="submit" name="login_submit" id="login_submit" value="Login">
 </form>
 
 <div class="alert alert-info" style="display: none;"></div>
+
+<!--
+JavaScript for mobile number input from
+https://www.twilio.com/blog/international-phone-number-input-html-javascript
+JavaScript for mobile number validation (NOT INCLUDED ATM) from
+https://www.twilio.com/blog/validate-phone-number-input
+-->
+{% block javascript %}
+<script>
+    const phoneInputField = document.querySelector("#mobile_number");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+       preferredCountries: ["us", "gb", "mx", "ca", "au"],
+       utilsScript:
+       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    login_submit.addEventListener("click", login);
+    function login(){
+        // what do i do!
+    }
+
+    const info = document.querySelector(".alert-info");
+    function process(event) {
+        event.preventDefault();
+
+        const phoneNumber = phoneInput.getNumber();
+
+        info.style.display = "";
+        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+    }
+
+
+ </script>
+{% endblock %}
 
 {% endblock %}
