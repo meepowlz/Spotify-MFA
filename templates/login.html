@@ -3,7 +3,7 @@
 
 <p>The login page</p>
 
-<form method="post" onsubmit="process(event)">
+<form method="post">
     <input type="text" name="username" placeholder="Username">
     <input type="password" name="password" placeholder="Password">
     <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
@@ -27,6 +27,8 @@ https://www.twilio.com/blog/validate-phone-number-input
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
+    document.getElementById("login_submit").addEventListener();
+
     const info = document.querySelector(".alert-info");
     function process(event) {
 
@@ -37,7 +39,6 @@ https://www.twilio.com/blog/validate-phone-number-input
         info.style.display = "";
         info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
 
-        document.getElementById("login_submit").addEventListener("submit");
     }
 
 
