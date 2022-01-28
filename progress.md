@@ -37,6 +37,7 @@
 ## Week of 01/24/2022
 
 + Decorator successfully functioning for redirecting user if they are not logged in
++ Country code phone number dropdown added
 
 ***
 
