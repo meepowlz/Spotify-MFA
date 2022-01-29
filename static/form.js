@@ -14,6 +14,7 @@ const phoneInput = window.intlTelInput(phoneInputField, {
 
 const info = document.querySelector(".alert-info");
 const error = document.querySelector(".alert-error");
+
 function process(event) {
 
     event.preventDefault();
@@ -27,7 +28,7 @@ function process(event) {
     if (phoneInput.isValidNumber()){
         // Displays confirmation message
         info.style.display = "";
-        info.innerHTML = "Phone number in E.164 format: <strong>${phoneNumber}</strong>";
+        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
 
         // Submits the formatted phone number
         data["mobile_number"] = phoneNumber;
@@ -36,14 +37,13 @@ function process(event) {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
-        }
+        })
     } else {
         // Displays error message
         error.style.display = "";
         error.innerHTML = "Invalid phone number"
     }
 
-    return false;
 
 }
 
