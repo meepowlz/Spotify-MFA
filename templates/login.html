@@ -3,7 +3,7 @@
 
 <p>The login page</p>
 
-<form method="post">
+<form id="form">
     <input type="text" name="username" placeholder="Username">
     <input type="password" name="password" placeholder="Password">
     <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
@@ -11,38 +11,11 @@
 </form>
 
 <div class="alert alert-info" style="display: none;"></div>
+<div class="alert alert-error" style="display: none;"></div>
 
-<!--
-JavaScript for mobile number input from
-https://www.twilio.com/blog/international-phone-number-input-html-javascript
-JavaScript for mobile number validation (NOT INCLUDED ATM) from
-https://www.twilio.com/blog/validate-phone-number-input
--->
+
 {% block javascript %}
-<script>
-    const phoneInputField = document.querySelector("#mobile_number");
-    const phoneInput = window.intlTelInput(phoneInputField, {
-       preferredCountries: ["us", "gb", "mx", "ca", "au"],
-       utilsScript:
-       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-
-    document.getElementById("login_submit").addEventListener();
-
-    const info = document.querySelector(".alert-info");
-    function process(event) {
-
-        event.preventDefault();
-
-        const phoneNumber = phoneInput.getNumber();
-
-        info.style.display = "";
-        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
-
-    }
-
-
- </script>
+<script src="{{url_for('static', filename='form.js')}}"> </script>
 {% endblock %}
 
 {% endblock %}
