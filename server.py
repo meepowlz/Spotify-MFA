@@ -63,7 +63,6 @@ def check_session(page):
 	def decorator(function):
 		@wraps(function)
 		def wrapper():
-			print(session.get("username"))
 			if not session.get("username"):
 				if page != "login":
 					print("Redirected to login")
@@ -94,10 +93,11 @@ def home_route():
 @check_session(page="login")
 def login_route():
 	if request.method == "POST":
+		data = request.get_json()
 		# Saves username
-		session["username"] = request.form.get("username")
+		session["username"] = data["username"]
 		# Sends 6-digit verification code
-		send_code(request.form["mobile_number"])
+		send_code(data["mobile_number"])
 		return flask.redirect("/authenticate")
 	return render_template("login.html")
 
