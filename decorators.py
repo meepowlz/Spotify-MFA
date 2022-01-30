@@ -1,27 +1,27 @@
-"""
-Serves as an example for how function decorators work
-To aid in creating decorators for login purposes
-"""
+import flask
+from flask import session, url_for
+from functools import wraps
 
 
-# Cheese is the decorator
-def cheese(function):  # do_math is passed into cheese here
-    def wrapper(x, y):  # the x and y arguments from do_math are accessed by wrapper
-        print("Starting value: x=" + str(x) + " y=" + str(y))
-        result = function(x, y)  # now do_math is called
-        print("After function!")
-        print("Result: " + str(result))
-
-    return wrapper
-
-
-@cheese
-# do_math is passed into cheese as an argument
-def do_math(x, y):  # x and y passed as arguments
-    print("I'm running!")
-    print(str(x) + " is multiplied by " + str(y))
-    result = x*y
-    return result
-
-
-do_math(4, 7)
+# Decorator for ensuring user is in an active session
+# Checks if a user is logged in or authenticated at each page
+def check_session(page):
+	def decorator(function):
+		@wraps(function)
+		def wrapper():
+			if not session.get("username"):
+				if page != "login":
+					print("Redirected to login")
+					return flask.redirect(url_for("login_route"))
+			elif not session.get("verified"):
+				if page != "authenticate":
+					print("Redirected to authenticate")
+					return flask.redirect(url_for("authenticate_route"))
+			elif page == "logout":
+				return function()
+			elif page != "landing":
+				print("Redirected to landing")
+				return flask.redirect(url_for("landing_route"))
+			return function()
+		return wrapper
+	return decorator
