@@ -38,6 +38,7 @@ function process(event) {
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
         })
+        location.assign("http://localhost:8080/authenticate");
     } else {
         // Displays error message
         error.style.display = "";
