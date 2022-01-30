@@ -1,48 +1,14 @@
 import flask
-from flask import Flask, render_template, request, session, url_for
+from flask import Flask, render_template, request, session
+import twilio_codes
 from flask_session import Session
-from twilio.rest import Client
 import os
 from dotenv import load_dotenv
-from functools import wraps
+from decorators import check_session
 
 
 # Allows environment variables to be accessed
 load_dotenv()
-
-
-# Twilio
-
-# Sets up Twilio client object(?) for sending verification codes
-account_sid = os.getenv("TWILIO_ACCOUNT_SID")
-auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-client = Client(account_sid, auth_token)
-
-
-# code snippet from https://www.twilio.com/docs/verify/api/verification
-# sends a verification code to the receiving number
-def send_code(receiving_num):
-	verification = client.verify \
-		.services(os.getenv("VERIFICATION_SID")) \
-		.verifications \
-		.create(to=receiving_num, channel="sms")
-
-	print(verification.sid)
-
-
-# code snippet from https://www.twilio.com/docs/verify/api/verification-check
-# checks sms verification
-def check_code(code_input):
-	verification_check = client.verify \
-		.services(os.getenv("VERIFICATION_SID")) \
-		.verification_checks \
-		.create(to=os.getenv("RECEIVING_NUM"), code=code_input)
-
-	print(verification_check.status)
-	if verification_check.status == "approved":
-		return True
-	else:
-		return False
 
 
 # Flask application
@@ -54,31 +20,6 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 Session(app)
 port = 8080
-
-
-# Decorator for ensuring user is in an active session
-# Checks if a user is logged in or authenticated at each page
-# Fix: needs to stop if on the correct page
-def check_session(page):
-	def decorator(function):
-		@wraps(function)
-		def wrapper():
-			if not session.get("username"):
-				if page != "login":
-					print("Redirected to login")
-					return flask.redirect(url_for("login_route"))
-			elif not session.get("verified"):
-				if page != "authenticate":
-					print("Redirected to authenticate")
-					return flask.redirect(url_for("authenticate_route"))
-			elif page == "logout":
-				return function()
-			elif page != "landing":
-				print("Redirected to landing")
-				return flask.redirect(url_for("landing_route"))
-			return function()
-		return wrapper
-	return decorator
 
 
 @app.route("/")
@@ -97,7 +38,7 @@ def login_route():
 		# Saves username
 		session["username"] = data["username"]
 		# Sends 6-digit verification code
-		send_code(data["mobile_number"])
+		twilio_codes.send_code(data["mobile_number"])
 		return flask.redirect("/authenticate")
 	return render_template("login.html")
 
@@ -107,7 +48,7 @@ def login_route():
 def authenticate_route():
 	if request.method == "POST":
 		# Attempts to verify code input
-		verification_status = check_code(request.form["code_textbox"])
+		verification_status = twilio_codes.check_code(request.form["code_textbox"])
 		if verification_status:
 			session["verified"] = True
 			return flask.redirect("/landing")
