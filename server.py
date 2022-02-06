@@ -1,4 +1,5 @@
 import flask
+import sqlite3
 from flask import Flask, render_template, request, session
 import twilio_codes
 from flask_session import Session
@@ -20,6 +21,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 Session(app)
 port = 8080
+
+db = sqlite3.connect("database.db")
 
 
 @app.route("/")

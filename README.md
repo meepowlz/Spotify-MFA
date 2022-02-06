@@ -42,3 +42,5 @@ A chronological log of the stages of progress can be viewed in progress.md
 - [ ] Have a code send to the number the user registered with on log in
 - [ ] Separate registration/login/authentication page into three routes?
 - [ ] Come up with a name for the project (Authify? :o)
+
++ Setup tables when database is loaded
