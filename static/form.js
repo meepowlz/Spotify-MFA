@@ -33,12 +33,12 @@ function process(event) {
         // Submits the formatted phone number
         data["mobile_number"] = phoneNumber;
         console.log({data});
-        fetch("http://localhost:8080/login", {
+        fetch("http://localhost:8080/register", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
         })
-        location.assign("http://localhost:8080/authenticate");
+        //location.assign("http://localhost:8080/authenticate");
     } else {
         // Displays error message
         error.style.display = "";

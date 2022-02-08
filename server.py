@@ -39,11 +39,17 @@ def register_route():
 	if request.method == "POST":
 		data = request.get_json()
 		# Attempt to register a new user
-		mod_database.register(data[""])
-		# Sends 6-digit verification code
-		twilio_codes.send_code(data["mobile_number"])
-		return flask.redirect("/authenticate")
-	return render_template("register.html")
+		registration_success, mobile_number = mod_database.register(data["username"], data["password"], data["mobile_number"])
+		if registration_success:
+			return flask.redirect("/authenticate")
+		else:
+			return render_template("register.html", error="Username or Phone Number already in use") # add the error reference in html later
+	return render_template("register.html") # separate this to a GET only route??
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login_route():
+	return render_template("login.html")
 
 
 @app.route("/authenticate", methods=["GET", "POST"])

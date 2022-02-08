@@ -1,7 +1,7 @@
 import sqlite3
 import bcrypt
 
-db = sqlite3.connect("database.db")
+db = sqlite3.connect("database.db", check_same_thread=False)
 
 
 def hash_password(password: str) -> bytes:
@@ -35,16 +35,20 @@ db.row_factory = dict_factory
 # Figure out what errors get raised to tell user that username/number already in use?
 def register(new_username, new_password, new_mobile_number):
 	try:
-		db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);", [new_username, hash_password(new_password), new_mobile_number])
+		db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);",
+					[new_username, hash_password(new_password), new_mobile_number])
 	except sqlite3.IntegrityError:
 		print("Username or Mobile Number already in use")
+		return False, None
+	else:
+		print("User added!")
+		db.commit()  # Updates db with new additions
+		return True, new_mobile_number
 
-
-db.commit()  # Updates db with new additions
 
 cursor = db.execute("SELECT * FROM users;")  # Selects all data from db
 
-data = cursor.fetchall()  # Sets data equal to all in db
+# data = cursor.fetchall()  # Sets data equal to all in db
 
 
 def verify_credentials(username, password):
@@ -61,8 +65,7 @@ def verify_credentials(username, password):
 		print("nocheese :(")
 
 
-print("Enter username and password")
-username = input("Username: ")
-password = input("Password: ")
-verify_credentials(username, password)
-
+# print("Enter username and password")
+# username = input("Username: ")
+# password = input("Password: ")
+# verify_credentials(username, password)

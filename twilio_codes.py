@@ -21,8 +21,6 @@ def send_code(receiving_num):
 		.verifications \
 		.create(to=receiving_num, channel="sms")
 
-	print(verification.sid)
-
 
 # code snippet from https://www.twilio.com/docs/verify/api/verification-check
 # checks sms verification
