@@ -7,11 +7,12 @@
     <input type="text" name="username" placeholder="Username">
     <input type="password" name="password" placeholder="Password">
     <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
-    <input type="submit" name="login_submit" id="login_submit" value="Login">
+    <input type="submit" name="register_submit" id="register_submit" value="Register">
 </form>
 
 <div class="alert alert-info" style="display: none;"></div>
 <div class="alert alert-error" style="display: none;"></div>
+<div>{{ error }}</div>
 
 
 {% block javascript %}
