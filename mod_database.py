@@ -69,6 +69,7 @@ def verify_credentials(username, password):
 	# 	print(user)
 	# 	print(bcrypt.checkpw(password.encode("UTF-8"), user["password"])) # user["password"] is hashed
 
+
 print("Enter username and password")
 username = input("Username: ")
 password = input("Password: ")
