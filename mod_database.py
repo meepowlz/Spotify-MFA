@@ -40,6 +40,12 @@ def register():
 	db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);", [input_username, hash_password(input_password), input_mobile_num])
 
 
+# try:
+# 	register()
+# except sqlite3.IntegrityError:
+# 	print("Username or Mobile Number already in use")
+
+
 db.commit()  # Updates db with new additions
 
 cursor = db.execute("SELECT * FROM users;")  # Selects all data from db
@@ -47,7 +53,24 @@ cursor = db.execute("SELECT * FROM users;")  # Selects all data from db
 data = cursor.fetchall()  # Sets data equal to all in db
 
 
-def check_password(password):
-	for user in data:
-		print(user)
-		print(bcrypt.checkpw(b"unhashed_password", user["password"])) # user["password"] is hashed
+def verify_credentials(username, password):
+
+	user = db.execute("SELECT * FROM users WHERE username = ?", [username]).fetchone()
+	if user:
+		pass_match = bcrypt.checkpw(password.encode("UTF-8"), user["password"])
+		if pass_match:
+			print("yaycheese :)")
+			print(user["mobile_number"])
+		else:
+			print("moldy cheese :/")
+	else:
+		print("nocheese :(")
+	# for user in data:
+	# 	print(user)
+	# 	print(bcrypt.checkpw(password.encode("UTF-8"), user["password"])) # user["password"] is hashed
+
+print("Enter username and password")
+username = input("Username: ")
+password = input("Password: ")
+verify_credentials(username, password)
+
