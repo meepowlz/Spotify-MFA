@@ -50,3 +50,13 @@
 ***
 
 + Project method section draft written
++ Project database constructed using SQLite 3
++ Password hashing and credential verification implemented
+
+***
+
+## Week of 02/07/2022
+
+***
+
++ Registration route created
