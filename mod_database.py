@@ -1,7 +1,6 @@
 import sqlite3
 import bcrypt
 
-# https://www.sqlitetutorial.net/sqlite-python/create-tables/
 
 db = sqlite3.connect("database.db", check_same_thread=False)
 
@@ -48,11 +47,6 @@ def register(new_username, new_password, new_mobile_number):
 		return True, new_mobile_number
 
 
-cursor = db.execute("SELECT * FROM users;")  # Selects all data from db
-
-# data = cursor.fetchall()  # Sets data equal to all in db
-
-
 def verify_credentials(username, password):
 
 	user = db.execute("SELECT * FROM users WHERE username = ?", [username]).fetchone()
@@ -65,9 +59,3 @@ def verify_credentials(username, password):
 			print("moldy cheese :/")
 	else:
 		print("nocheese :(")
-
-
-# print("Enter username and password")
-# username = input("Username: ")
-# password = input("Password: ")
-# verify_credentials(username, password)

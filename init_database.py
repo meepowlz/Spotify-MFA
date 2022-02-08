@@ -4,8 +4,6 @@
 import sqlite3
 from sqlite3 import Error
 
-db = sqlite3.connect("database.db", check_same_thread=False)
-
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
