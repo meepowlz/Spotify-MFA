@@ -35,16 +35,23 @@ db.row_factory = dict_factory
 # Add new user to database
 # Figure out what errors get raised to tell user that username/number already in use?
 def register(new_username, new_password, new_mobile_number):
+	"""
+
+	:param new_username: str
+	:param new_password: str
+	:param new_mobile_number: str
+	:return: bool, str, str
+	"""
 	try:
 		db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);",
 					[new_username, hash_password(new_password), new_mobile_number])
 	except sqlite3.IntegrityError:
 		print("Username or Mobile Number already in use")
-		return False, None
+		return False, None, "Username or Mobile Number is already in use"
 	else:
 		print("User added!")
 		db.commit()  # Updates db with new additions
-		return True, new_mobile_number
+		return True, new_mobile_number, None
 
 
 def verify_credentials(username, password):

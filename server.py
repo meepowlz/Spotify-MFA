@@ -31,6 +31,7 @@ port = 8080
 
 
 @app.route("/")
+@app.route("/home")
 def home_route():
 	# resets session (temporary)
 	session["username"] = None
@@ -47,15 +48,16 @@ def register_route_post():
 	# Get data from user input
 	data = request.get_json()
 	# Attempt to register a new user
-	registration_success, mobile_number = mod_database.register(data["username"], data["password"], data["mobile_number"])
-
+	registration_success, mobile_number, error = mod_database.register(data["username"], data["password"], data["mobile_number"])
 	if registration_success:
-		return flask.redirect("/authenticate")
+		session["username"] = data["username"]
+		return {"success": registration_success, "error": error}
 	else:
-		return render_template("register.html") # add errors
+		return {"success": registration_success, "error": error}
 
 
 @app.route("/login", methods=["GET", "POST"])
+@check_session(page="login")
 def login_route():
 	return render_template("login.html")
 
@@ -84,7 +86,6 @@ def landing_route():
 @check_session(page="logout")
 def logout_route():
 	session["username"] = None
-	session["password"] = None
 	session["verified"] = False  # should this be none?
 	return flask.redirect("/")
 
