@@ -1,6 +1,8 @@
 import flask
 import sqlite3
 from flask import Flask, render_template, request, session
+
+import mod_database
 import twilio_codes
 from flask_session import Session
 import os
@@ -26,24 +28,22 @@ db = sqlite3.connect("database.db")
 
 
 @app.route("/")
-@check_session(page="home")
 def home_route():
 	# resets session (temporary)
 	session["username"] = None
 	return render_template("base.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
-@check_session(page="login")
-def login_route():
+@app.route("/register", methods=["GET", "POST"])
+def register_route():
 	if request.method == "POST":
 		data = request.get_json()
-		# Saves username
-		session["username"] = data["username"]
+		# Attempt to register a new user
+		mod_database.register(data[""])
 		# Sends 6-digit verification code
 		twilio_codes.send_code(data["mobile_number"])
 		return flask.redirect("/authenticate")
-	return render_template("login.html")
+	return render_template("register.html")
 
 
 @app.route("/authenticate", methods=["GET", "POST"])

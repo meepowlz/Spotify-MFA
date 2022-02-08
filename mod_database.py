@@ -33,17 +33,11 @@ db.row_factory = dict_factory
 
 # Add new user to database
 # Figure out what errors get raised to tell user that username/number already in use?
-def register():
-	input_username = input("Username: ")
-	input_password = input("Password: ")
-	input_mobile_num = input("Mobile Number: ")
-	db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);", [input_username, hash_password(input_password), input_mobile_num])
-
-
-# try:
-# 	register()
-# except sqlite3.IntegrityError:
-# 	print("Username or Mobile Number already in use")
+def register(new_username, new_password, new_mobile_number):
+	try:
+		db.execute("INSERT INTO users(username, password, mobile_number) VALUES(?, ?, ?);", [new_username, hash_password(new_password), new_mobile_number])
+	except sqlite3.IntegrityError:
+		print("Username or Mobile Number already in use")
 
 
 db.commit()  # Updates db with new additions
@@ -65,9 +59,6 @@ def verify_credentials(username, password):
 			print("moldy cheese :/")
 	else:
 		print("nocheese :(")
-	# for user in data:
-	# 	print(user)
-	# 	print(bcrypt.checkpw(password.encode("UTF-8"), user["password"])) # user["password"] is hashed
 
 
 print("Enter username and password")
