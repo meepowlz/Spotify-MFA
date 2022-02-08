@@ -1,6 +1,8 @@
 import sqlite3
 import bcrypt
 
+# https://www.sqlitetutorial.net/sqlite-python/create-tables/
+
 db = sqlite3.connect("database.db", check_same_thread=False)
 
 
