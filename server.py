@@ -90,7 +90,8 @@ def authenticate_route():
 			session["verified"] = True
 			return flask.redirect("/landing")
 		else:
-			return render_template("authenticate.html", auth_status="Authentication failed.")
+			return render_template("authenticate.html", error=True)
+
 	return render_template("authenticate.html")
 
 

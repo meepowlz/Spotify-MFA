@@ -7,6 +7,11 @@
     <input type="submit" id="submit_code">
 </form>
 
-<p>{{ auth_status }}</p>
+{% if error %}
+
+<p>Authentication failed. Re-try, or send a new code.</p>
+<button type="submit" id="resend_code">Resend Code</button>
+
+{% endif %}
 
 {% endblock %}
