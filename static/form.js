@@ -20,7 +20,6 @@ function process(event) {
     event.preventDefault();
 
     var form = new FormData(event.target);
-    console.log(form);
     var data = Object.fromEntries(form);
 
     const phoneNumber = phoneInput.getNumber();
@@ -32,13 +31,22 @@ function process(event) {
 
         // Submits the formatted phone number
         data["mobile_number"] = phoneNumber;
-        console.log({data});
         fetch("http://localhost:8080/register", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {"Content-Type": "application/json"}
+        }).then(response => {
+            response.json().then(data => {  // parse JSON
+                const success = data.success
+                const errorMessage = data.error
+                if (success === true) {  // redirect if registration was successful
+                    location.assign("http://localhost:8080/authenticate")
+                } else {  // display an error if registration was not successful
+                    error.style.display = "";
+                    error.innerHTML = errorMessage
+                }
+            })
         })
-        //location.assign("http://localhost:8080/authenticate");
     } else {
         // Displays error message
         error.style.display = "";
