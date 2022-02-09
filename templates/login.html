@@ -2,7 +2,20 @@
 
 {% block content %}
 
-<p>Login page</p>
+<p>The login page</p>
+
+<form id="form">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" name="register_submit" id="register_submit" value="Register">
+</form>
+
+<div class="alert alert-info" style="display: none;"></div>
+<div class="alert alert-error" style="display: none;"></div>
 
 
-{% endblock%}
+{% block javascript %}
+<script src="{{url_for('static', filename='login.js')}}"> </script>
+{% endblock %}
+
+{% endblock %}
