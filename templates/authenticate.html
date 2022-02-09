@@ -10,8 +10,30 @@
 {% if error %}
 
 <p>Authentication failed. Re-try, or send a new code.</p>
-<button type="submit" id="resend_code">Resend Code</button>
+<button onclick="" type="submit" id="resend_code">Resend Code</button>
+<p id="error-message-resend" style="display: none;"></p>
 
 {% endif %}
 
 {% endblock %}
+
+<script>
+    function resend() {
+        let error = document.getElementById("error-message-resend")
+        fetch("http://localhost:8080/resend-code", {
+            method: "POST",
+        }).then(response => {
+        response.json().then(data => {  // parse JSON
+                const success = data.success
+                const errorMessage = data.error
+                if (success === false) {  // redirect if login was successful
+                    error.style.display = "";
+                    error.innerHTML = errorMessage
+                }
+            })
+        }).catch(error => {
+            error.style.display = "";
+            error.innerHTML = "Unable to resend code"
+        })
+    }
+</script>
