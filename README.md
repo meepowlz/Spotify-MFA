@@ -1,4 +1,4 @@
-# Spotify-MFA
+# Spotify-2FA
 A conceptual program for implementing 2-Factor Authentication into Spotify
 Use this to explain the program when it is finalized
 A chronological log of the stages of progress can be viewed in progress.md
@@ -35,12 +35,14 @@ A chronological log of the stages of progress can be viewed in progress.md
 - [x] Set up a basic web server to host the project on
 - [x] Set up Twilio & have it successfully send a message
 - [x] Have Twilio send an authentication code
-- [ ] Fix so other phone numbers can work? [Read here](https://www.twilio.com/blog/international-phone-number-input-html-javascript)
-- [ ] Ensure the session gets reset on application load?
-- [ ] Work on secret keys, cookies, and storing user data
-- [ ] Implement registration system
-- [ ] Have a code send to the number the user registered with on log in
-- [ ] Separate registration/login/authentication page into three routes?
-- [ ] Come up with a name for the project (Authify? :o)
+- [x] Ensure the session gets reset on application load?
+- [x] Work on secret keys, cookies, and storing user data
+- [x] Implement registration system
+- [x] Have a code send to the number the user registered with on log in
+- [x] Separate registration/login/authentication page into three routes?
+- [x] Come up with a name for the project (Authify? :o)
 
-+ Setup tables when database is loaded
+To do:
++ Add account button on home page
++ Add login button on register page
++ Add register button on login page
