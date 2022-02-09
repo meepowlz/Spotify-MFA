@@ -59,10 +59,15 @@ def register_route_post():
 		# Display error
 		return {"success": registration_success, "error": error}
 
-
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET"])
 @check_session(page="login")
-def login_route():
+def login_route_get():
+	return render_template("login.html")
+
+
+@app.route("/login", methods=["POST"])
+@check_session(page="login")
+def login_route_post():
 	# Get data from user input
 	data = request.get_json()
 	# Attempt to log in user
