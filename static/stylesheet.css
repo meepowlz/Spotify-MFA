@@ -10,13 +10,20 @@ Black: #191414
 
 /* General */
 
+* {
+    font-family: "Arial";
+}
+
 header {
     padding: 0px;
-    background: mediumseagreen;
-    color: black;
+    background: #191414;
+    color: #FFFFFF;
     font-size: 20px;
 }
 
+button, input {
+    cursor: pointer;
+}
 
 /* Classes */
 
@@ -25,3 +32,29 @@ header {
     justify-content: center;
     align-items: center;
 }
+
+.header_btn {
+    width: 100px;
+    height: 50px;
+    background: #1DB954;
+    color: #FFFFFF;
+    font-size: 20px;
+    border-style: hidden;;
+    border-radius: 30px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.login_form {
+
+}
+
+.registration_form {
+
+}
+
+/* By ID */
+
