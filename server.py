@@ -52,11 +52,13 @@ def register_route_post():
 	if registration_success:
 		# Set session
 		session["username"] = data["username"]
-		session["mobile_num"] = mobile_number
+		session["mobile_number"] = mobile_number
+		print("Mobile num added")
 		return {"success": registration_success, "error": error}
 	else:
 		# Display error
 		return {"success": registration_success, "error": error}
+
 
 @app.route("/login", methods=["GET"])
 @check_session(page="login")
