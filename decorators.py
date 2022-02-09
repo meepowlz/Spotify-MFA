@@ -16,7 +16,7 @@ def check_session(page):
 			elif not session.get("verified"):
 				if page != "authenticate":
 					print("Redirected to authenticate")
-					return flask.redirect(url_for("authenticate_route"))
+					return flask.redirect(url_for("authenticate_route_get"))
 			elif page == "logout":
 				return function()
 			elif page != "landing":
