@@ -52,8 +52,7 @@ def register_route_post():
 	if registration_success:
 		# Set session
 		session["username"] = data["username"]
-		# Sends code to phone number
-		twilio_codes.send_code(mobile_number)
+		session["mobile_num"] = mobile_number
 		return {"success": registration_success, "error": error}
 	else:
 		# Display error
@@ -76,17 +75,23 @@ def login_route_post():
 	if login_success:
 		# Set session
 		session["username"] = data["username"]
-		# Sends code to phone number
-		twilio_codes.send_code(mobile_number)
+		session["mobile_number"] = mobile_number
 		return {"success": login_success, "error": error}
 	else:
 		# Display error
 		return {"success": login_success, "error": error}
 
 
-@app.route("/authenticate", methods=["GET", "POST"])
+@app.route("/authenticate", methods=["GET"])
 @check_session(page="authenticate")
-def authenticate_route():
+def authenticate_route_get():
+	twilio_codes.send_code(session["mobile_number"])
+	return render_template("authenticate.html")
+
+
+@app.route("/authenticate", methods=["POST"])
+@check_session(page="authenticate")
+def authenticate_route_post():
 	if request.method == "POST":
 		# Attempts to verify code input
 		verification_status = twilio_codes.check_code(request.form["code_textbox"])
@@ -97,7 +102,15 @@ def authenticate_route():
 		else:
 			return render_template("authenticate.html", error=True)
 
-	return render_template("authenticate.html")
+
+@app.route("/resend-code", methods=["POST"])
+@check_session(page="resend")
+def resend_route():
+	if session["mobile_number"]:
+		twilio_codes.send_code(session["mobile_number"])
+		return {"success":  True, "error": None}
+	else:
+		return {"success": False, "error": "Code could not be sent."}
 
 
 @app.route("/landing")
