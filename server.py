@@ -1,5 +1,4 @@
 import os
-import sqlite3
 
 import flask
 from dotenv import load_dotenv
@@ -49,17 +48,35 @@ def register_route_post():
 	data = request.get_json()
 	# Attempt to register a new user
 	registration_success, mobile_number, error = mod_database.register(data["username"], data["password"], data["mobile_number"])
+	# Checks if registration was successful
 	if registration_success:
+		# Set session
 		session["username"] = data["username"]
+		# Sends code to phone number
+		twilio_codes.send_code(mobile_number)
 		return {"success": registration_success, "error": error}
 	else:
+		# Display error
 		return {"success": registration_success, "error": error}
 
 
 @app.route("/login", methods=["GET", "POST"])
 @check_session(page="login")
 def login_route():
-	return render_template("login.html")
+	# Get data from user input
+	data = request.get_json()
+	# Attempt to log in user
+	login_success, mobile_number, error = mod_database.verify_credentials(data["username"], data["password"])
+	# Checks if login was successful
+	if login_success:
+		# Set session
+		session["username"] = data["username"]
+		# Sends code to phone number
+		twilio_codes.send_code(mobile_number)
+		return {"success": login_success, "error": error}
+	else:
+		# Display error
+		return {"success": login_success, "error": error}
 
 
 @app.route("/authenticate", methods=["GET", "POST"])
@@ -68,11 +85,12 @@ def authenticate_route():
 	if request.method == "POST":
 		# Attempts to verify code input
 		verification_status = twilio_codes.check_code(request.form["code_textbox"])
+		# Checks if verification was successful
 		if verification_status:
 			session["verified"] = True
 			return flask.redirect("/landing")
 		else:
-			return render_template("authenticate.html", auth_status="Authentication failed")
+			return render_template("authenticate.html", auth_status="Authentication failed.")
 	return render_template("authenticate.html")
 
 

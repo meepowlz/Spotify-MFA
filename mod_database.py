@@ -55,14 +55,21 @@ def register(new_username, new_password, new_mobile_number):
 
 
 def verify_credentials(username, password):
-
+	"""
+	Attempts to verify a user on login
+	:param username: str
+	:param password: str
+	:return:
+	"""
 	user = db.execute("SELECT * FROM users WHERE username = ?", [username]).fetchone()
 	if user:
 		pass_match = bcrypt.checkpw(password.encode("UTF-8"), user["password"])
 		if pass_match:
 			print("yaycheese :)")
 			print(user["mobile_number"])
+			return True, user["mobile_number"], None
 		else:
 			print("moldy cheese :/")
 	else:
 		print("nocheese :(")
+	return False, None, "Username or Password is incorrect"
