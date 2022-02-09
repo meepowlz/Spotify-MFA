@@ -1,15 +1,21 @@
+<!--
+Base HTML file with header displayed across pages
+Contains basic information about the program
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Spotify Conceptual 2-FA{% endblock %}</title>
+    <!-- Links to JavaScript int-tel-input plugin and local CSS stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
     <link rel="stylesheet" href="/static/stylesheet.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body>
 
-<!-- Header -->
+<!-- Page Header -->
 
 <header>
     <div class="left_header">
@@ -20,15 +26,14 @@
     <div class="right_header">
         <a href="http://localhost:8080/login" class="header_padding"><button class="header_btn">Login</button></a>
         <a href="http://localhost:8080/register" class="header_padding"><button class="header_btn">Register</button></a>
+        <!-- Add account button with person clipart -->
     </div>
 </header>
 
-
+<!-- Extends HTML template -->
 {% block content %}
 
-<a href="http://localhost:8080/login"><button>Login</button></a>
-<a href="http://localhost:8080/register"><button>Register</button></a>
-
 {% endblock %}
+
 </body>
 </html>
