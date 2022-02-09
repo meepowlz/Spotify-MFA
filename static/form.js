@@ -46,6 +46,8 @@ function process(event) {
                     error.innerHTML = errorMessage
                 }
             })
+        }).catch(error => {
+            error.innerHTML = "Something went wrong :( Try again later."
         })
     } else {
         // Displays error message
