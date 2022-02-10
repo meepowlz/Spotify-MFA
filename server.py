@@ -118,7 +118,7 @@ def resend_route():
 @app.route("/landing")
 @check_session(page="landing")
 def landing_route():
-	return render_template("landing.html")
+	return render_template("landing.html", username=session["username"])
 
 
 @app.route("/logout")
