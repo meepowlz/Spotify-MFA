@@ -14,15 +14,37 @@ Black: #191414
     font-family: "Arial";
 }
 
-header {
-    padding: 0px;
-    background: #191414;
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    background: #1DB954;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 18px;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #191414;
 }
 
 button, input {
     cursor: pointer;
+}
+
+header {
+    padding: 5px;
+    display: flex;
+    background: #191414;
+    color: #FFFFFF;
+    font-size: 20px;
 }
 
 /* Classes */
@@ -34,27 +56,31 @@ button, input {
 }
 
 .header_btn {
-    width: 100px;
-    height: 50px;
-    background: #1DB954;
-    color: #FFFFFF;
-    font-size: 20px;
-    border-style: hidden;;
-    border-radius: 30px;
+    border-color: #FFFFFF;
 }
 
 .header_padding {
-    padding: 0 20px;
+    padding: 0 25px;
+
+}
+
+.header_elements_padding {
+    padding: 0 10px;
 }
 
 .left_header {
     display: inline-flex;
     justify-content: flex-start;
     align-items: center;
+    width: 50%;
 }
 
 .login_form {
 
+}
+
+.nav_btn {
+    border-color: #191414;
 }
 
 .registration_form {
@@ -65,20 +91,11 @@ button, input {
     display: inline-flex;
     justify-content: flex-end;
     align-items: center;
+    float: right;
+    width: 50%;
 }
 
 /* By ID */
 
-/*
-See base.html <header>
-I have two divs: the one with the image and heading text, which I wanted to be on the left of the header (.left)
-and the login/register buttons (will add an "account" button maybe) on the right side of the header (.right)
-Both should be vertically centered
 
-Used flex box to try and have them situate on the same line (current configuration is best I got)
-Tried:
-float: left & float:right (breaks header completely)
-display: flex (puts them on top of eachother)
-surrounding both divs in another div (didn't affect anything)
- */
 
