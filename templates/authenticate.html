@@ -9,25 +9,28 @@ Allows the user to enter the code they received at their phone number
 
 {% block content %}
 
-<div class="center">
-
     <!-- Accepts authentication code -->
-    <p>Enter the 6-digit authentication code that was texted to your account's mobile number.</p>
-    <form method="post">
-        <input type="text" name="code_textbox" minlength="6" maxlength="6" autocomplete="off">
-        <input type="submit" id="submit_code">
-    </form>
+    <h2 class="center">Enter the 6-digit authentication code that was texted to your account's mobile number.</h2>
+    <div class="center">
+            <form method="post">
+                <input type="text" name="code_textbox" minlength="6" maxlength="6" autocomplete="off" class="center input_text">
+                <div class="center">
+                    <input type="submit" id="submit_code" class="center form_submit">
+                </div>
+            </form>
+    </div>
+
 
     <!-- Prints error if authentication failed -->
     {% if error %}
 
-    <p>Authentication failed. Re-try, or click to resend the code.</p>
-    <button onclick="resend()" type="submit" id="resend_code">Resend Code</button>
-    <p id="error-message-resend" style="display: none;"></p>
+    <h3 class="center">Authentication failed. Re-try, or click to resend the code.</h3>
+    <div class="center">
+        <button onclick="resend()" type="submit" id="resend_code" style="width:150px">Resend Code</button>
+    </div>
+    <h4 id="error-message-resend" style="display: none;"></h4>
 
     {% endif %}
-
-</div>
 
 <!--
 JavaScript to control authentication code submission,

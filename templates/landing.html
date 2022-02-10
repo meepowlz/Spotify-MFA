@@ -10,8 +10,9 @@ Contains username and basic information
 {% block content %}
 
 <!-- User account information -->
+
+<h3 class="center">You are logged in as: {{ username }}</h3>
 <div class="center">
-    <p>You are logged in as {{ username }}</p>
     <a href="http://localhost:8080/logout"><button class="nav_btn">Logout</button></a>
 </div>
 

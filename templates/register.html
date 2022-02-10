@@ -15,7 +15,7 @@
             <label for="password">Password</label>
             <input type="password" name="password" id="password" class="center input_text" required>
             <label for="mobile_number">Mobile Number</label>
-            <div class="center">
+            <div class="center" style="margin-top:15px;">
                 <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off" class="input_mobile">
             </div>
             <div class="center">
@@ -29,7 +29,7 @@
 
     <!-- Navigation information -->
     <div>
-        <p class="center">Already have an account?</p>
+        <h3 class="center">Already have an account?</h3>
         <div class="center">
             <a href="{{ url_for('login_route_get') }}"><button class="nav_btn center">Login</button></a>
         </div>
