@@ -9,7 +9,9 @@ Contains basic information about the program that persists
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Spotify Conceptual 2-FA{% endblock %}</title>
+
         <!-- Links to JavaScript int-tel-input plugin and local CSS stylesheet -->
+        <link rel="icon" href="/static/assets/badge_icon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
         <link rel="stylesheet" href="/static/stylesheet.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
@@ -33,9 +35,10 @@ Contains basic information about the program that persists
 
 
         <div class="right_header header_padding">
+            <a href="{{ url_for('home_route') }}" class="header_elements_padding"><button class="header_btn">Home</button></a>
             <a href="{{ url_for('login_route_get') }}" class="header_elements_padding"><button class="header_btn">Login</button></a>
             <a href="{{ url_for('register_route_get') }}" class="header_elements_padding"><button class="header_btn">Register</button></a>
-            <a href="{{ url_for('landing_route') }}" class="header_elements_padding"><img src="/static/assets/white_account_icon.png" height="40px"></a>
+            <a href="{{ url_for('landing_route') }}" class="header_elements_padding"><img src="/static/assets/white_account_icon.png" height="40px" alt="Account"></a>
             <!-- Add account button with person clipart -->
         </div>
 
@@ -49,15 +52,18 @@ Contains basic information about the program that persists
     {% block content %}
 
     <!-- Project description on home page -->
-    <div class="center">
-        <p>Spotify Conceptual 2-FA</p>
-        <p>Features:</p>
-        <ul>
-            <li>SMS-based authentication, powered by Twilio</li>
-            <li>Phone number verification</li>
-            <li>Password protection</li>
-        </ul>
-        <a href="">GitHub page</a>
+    <div class="center main_content_box">
+        <hr class="div_linebreak">
+            <h2>Spotify Conceptual 2-FA</h2>
+        <hr class="div_linebreak">
+            <h3>Features:</h3>
+            <ul>
+                <li>SMS-based authentication, powered by Twilio</li>
+                <li>Phone number verification</li>
+                <li>Password protection</li>
+            </ul>
+        <hr class="div_linebreak">
+            <a href="https://github.com/meepowlz/Spotify-MFA"><button class="nav_btn">GitHub</button></a>
     </div>
 
     {% endblock %}

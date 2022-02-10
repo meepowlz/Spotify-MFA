@@ -11,7 +11,7 @@ Black: #191414
 /* General */
 
 * {
-    font-family: "Arial";
+    font-family: "Arial", "Verdana";
 }
 
 a {
@@ -55,6 +55,18 @@ header {
     align-items: center;
 }
 
+.content_box {
+    border-style: solid;
+}
+
+/* https://stackoverflow.com/questions/29732575/how-to-specify-line-breaks-in-a-multi-line-flexbox-layout */
+.div_linebreak {
+    width: 100%;
+    flex-basis: 100%;
+    height: 0;
+    margin: 0;
+    border: 0;
+}
 .header_btn {
     border-color: #FFFFFF;
 }
@@ -78,6 +90,10 @@ header {
 
 }
 
+.main_content_box {
+    margin: 25px;
+    border-style: solid;
+}
 .nav_btn {
     border-color: #191414;
 }
