@@ -59,14 +59,6 @@ header {
     border-style: solid;
 }
 
-/* https://stackoverflow.com/questions/29732575/how-to-specify-line-breaks-in-a-multi-line-flexbox-layout */
-.div_linebreak {
-    width: 100%;
-    flex-basis: 100%;
-    height: 0;
-    margin: 0;
-    border: 0;
-}
 .header_btn {
     border-color: #FFFFFF;
 }
@@ -86,8 +78,15 @@ header {
     width: 50%;
 }
 
-.login_form {
-
+.form_submit {
+    width: 100px;
+    height: 40px;
+    background: #1DB954;
+    color: #FFFFFF;
+    font-size: 18px;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: #191414;
 }
 
 .main_content_box {
@@ -96,10 +95,6 @@ header {
 }
 .nav_btn {
     border-color: #191414;
-}
-
-.registration_form {
-
 }
 
 .right_header {
