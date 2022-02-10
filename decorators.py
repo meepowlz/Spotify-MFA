@@ -10,17 +10,15 @@ def check_session(page):
 		@wraps(function)
 		def wrapper():
 			if not session.get("username"):
-				if page != "login":
-					print("Redirected to login")
-					return flask.redirect(url_for("login_route_get"))
-			elif not session.get("verified"):
+				if page != "register":
+					if page != "login":
+						return flask.redirect(url_for("login_route_get"))
+			elif not (session.get("verified") and session.get("code_pending")):
 				if page != "authenticate":
-					print("Redirected to authenticate")
 					return flask.redirect(url_for("authenticate_route_get"))
 			elif page == "logout":
 				return function()
 			elif page != "landing":
-				print("Redirected to landing")
 				return flask.redirect(url_for("landing_route"))
 			return function()
 		return wrapper

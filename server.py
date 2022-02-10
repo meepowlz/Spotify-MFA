@@ -38,11 +38,13 @@ def home_route():
 
 
 @app.route("/register", methods=["GET"])
+@check_session(page="register")
 def register_route_get():
 	return render_template("register.html")
 
 
 @app.route("/register", methods=["POST"])
+@check_session(page="register")
 def register_route_post():
 	# Get data from user input
 	data = request.get_json()
@@ -78,6 +80,7 @@ def login_route_post():
 		# Set session
 		session["username"] = data["username"]
 		session["mobile_number"] = mobile_number
+		session["code_pending"] = False
 		return {"success": login_success, "error": error}
 	else:
 		# Display error
@@ -87,7 +90,9 @@ def login_route_post():
 @app.route("/authenticate", methods=["GET"])
 @check_session(page="authenticate")
 def authenticate_route_get():
-	twilio_codes.send_code(session["mobile_number"])
+	if not session["code_pending"]:
+		twilio_codes.send_code(session["mobile_number"])
+		session["code_pending"] = True
 	return render_template("authenticate.html")
 
 
@@ -100,6 +105,7 @@ def authenticate_route_post():
 		# Checks if verification was successful
 		if verification_status:
 			session["verified"] = True
+			session["code_pending"] = False
 			return flask.redirect("/landing")
 		else:
 			return render_template("authenticate.html", error=True)
@@ -108,8 +114,10 @@ def authenticate_route_post():
 @app.route("/resend-code", methods=["POST"])
 @check_session(page="resend")
 def resend_route():
+	print("Status;", session["mobile_number"])
 	if session["mobile_number"]:
 		twilio_codes.send_code(session["mobile_number"])
+		session["code_pending"] = True
 		return {"success":  True, "error": None}
 	else:
 		return {"success": False, "error": "Code could not be sent."}
@@ -125,8 +133,10 @@ def landing_route():
 @check_session(page="logout")
 def logout_route():
 	session["username"] = None
-	session["verified"] = False  # should this be none?
+	session["mobile_number"] = None
+	session["verified"] = False
 	return flask.redirect("/")
 
 
+# Runs the webserver
 app.run(host="localhost", port=port)
