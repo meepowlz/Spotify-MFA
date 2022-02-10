@@ -92,7 +92,7 @@ header {
 
 .input_mobile {
     width: 325px;
-    margin: 0;
+    margin: 15px;
     padding: 10px;
     border-radius: 20px;
 }

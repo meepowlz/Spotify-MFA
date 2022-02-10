@@ -10,8 +10,10 @@
     <h2 class="center">Login</h2>
     <div class="center">
         <form id="form">
-            <input type="text" name="username" placeholder="Username" class="center input_text">
-            <input type="password" name="password" placeholder="Password" class="center input_text">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="center input_text" required>
+            <label for="Password">Password</label>
+            <input type="password" name="password" id="password" class="center input_text" required>
             <div class="center">
                 <input type="submit" name="login_submit" id="login_submit" value="Login" class="center form_submit">
             </div>

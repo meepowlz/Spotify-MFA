@@ -10,8 +10,11 @@
     <h2 class="center">Register</h2>
     <div class="center">
         <form id="form">
-            <input type="text" name="username" placeholder="Username" class="center input_text">
-            <input type="password" name="password" placeholder="Password" class="center input_text">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="center input_text" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="center input_text" required>
+            <label for="mobile_number">Mobile Number</label>
             <div class="center">
                 <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off" class="input_mobile">
             </div>
