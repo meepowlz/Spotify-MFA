@@ -9,22 +9,30 @@ Allows the user to enter the code they received at their phone number
 
 {% block content %}
 
-<!-- Accepts authentication code -->
-<p>Enter the 6-digit authentication code that was texted to your account's mobile number.</p>
-<form method="post">
-    <input type="text" name="code_textbox" minlength="6" maxlength="6" autocomplete="off">
-    <input type="submit" id="submit_code">
-</form>
+<div class="center">
 
-<!-- Prints error if authentication failed -->
-{% if error %}
+    <!-- Accepts authentication code -->
+    <p>Enter the 6-digit authentication code that was texted to your account's mobile number.</p>
+    <form method="post">
+        <input type="text" name="code_textbox" minlength="6" maxlength="6" autocomplete="off">
+        <input type="submit" id="submit_code">
+    </form>
 
-<p>Authentication failed. Re-try, or click to resend the code.</p>
-<button onclick="resend()" type="submit" id="resend_code">Resend Code</button>
-<p id="error-message-resend" style="display: none;"></p>
+    <!-- Prints error if authentication failed -->
+    {% if error %}
 
-{% endif %}
+    <p>Authentication failed. Re-try, or click to resend the code.</p>
+    <button onclick="resend()" type="submit" id="resend_code">Resend Code</button>
+    <p id="error-message-resend" style="display: none;"></p>
 
+    {% endif %}
+
+</div>
+
+<!--
+JavaScript to control authentication code submission,
+resending codes, and displaying errors if authentication failed
+-->
 <script>
     function resend() {
         let error = document.getElementById("error-message-resend")
