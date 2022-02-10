@@ -6,23 +6,28 @@
 
 {% block content %}
 
-<div class="center">
-
     <!-- Accepts user input for logging in-->
-    <form id="form">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" name="login_submit" id="login_submit" value="Login" class="form_submit">
-    </form>
+    <h2 class="center">Login</h2>
+    <div class="center">
+        <form id="form">
+            <input type="text" name="username" placeholder="Username" class="center input_text">
+            <input type="password" name="password" placeholder="Password" class="center input_text">
+            <div class="center">
+                <input type="submit" name="login_submit" id="login_submit" value="Login" class="center form_submit">
+            </div>
+        </form>
+    </div>
 
     <!-- Displays any errors -->
     <!--<div class="alert alert-info" style="display: none;"></div>-->
-    <div class="alert alert-error" style="display: none;"></div>
+    <div class="alert alert-error center" style="display:none;"></div>
 
     <!-- Navigation information -->
     <div>
-        <p>Don't have an account?</p>
-        <a href="{{ url_for('register_route_get') }}"><button class="nav_btn">Register</button></a>
+        <p class="center">Don't have an account?</p>
+        <div class="center">
+            <a href="{{ url_for('register_route_get') }}"><button class="nav_btn">Register</button></a>
+        </div>
     </div>
 
     <!-- Links JavaScript for fetch API -->

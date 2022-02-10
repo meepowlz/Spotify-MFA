@@ -79,6 +79,7 @@ header {
 }
 
 .form_submit {
+    margin: 15px;
     width: 100px;
     height: 40px;
     background: #1DB954;
@@ -87,6 +88,20 @@ header {
     border-style: solid;
     border-radius: 30px;
     border-color: #191414;
+}
+
+.input_mobile {
+    width: 325px;
+    margin: 0;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.input_text {
+    width: 300px;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .main_content_box {
