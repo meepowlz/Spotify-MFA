@@ -1,29 +1,35 @@
+<!-- Page for users to register a new account -->
+
 {% extends "base.html" %}
 
 {% block title %}Register | Spotify 2-FA{% endblock %}
 
 {% block content %}
 
-<p>The registration page</p>
+<div class="center">
 
-<form id="form">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
-    <input type="submit" name="register_submit" id="register_submit" value="Register">
-</form>
+    <!-- Accepts user input for registering a new user -->
+    <form id="form">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off">
+        <input type="submit" name="register_submit" id="register_submit" value="Register">
+    </form>
 
-<div>
-    <p>Already have an account?</p>
-    <a href="{{ url_for('login_route_get') }}"><button class="nav_btn">Login</button></a>
+    <!-- Displays any errors -->
+    <div class="alert alert-error" style="display: none;"></div>
+
+    <!-- Navigation information -->
+    <div>
+        <p>Already have an account?</p>
+        <a href="{{ url_for('login_route_get') }}"><button class="nav_btn">Login</button></a>
+    </div>
+
+    <!-- Links JavaScript for fetch API -->
+    {% block javascript %}
+    <script src="{{url_for('static', filename='register.js')}}"> </script>
+    {% endblock %}
+
 </div>
-
-<div class="alert alert-info" style="display: none;"></div>
-<div class="alert alert-error" style="display: none;"></div>
-
-
-{% block javascript %}
-<script src="{{url_for('static', filename='register.js')}}"> </script>
-{% endblock %}
 
 {% endblock %}
