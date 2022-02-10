@@ -60,3 +60,5 @@
 ***
 
 + Registration route created
++ Registration page completed
++ CSS used to style entire website
