@@ -80,7 +80,6 @@ def login_route_post():
 		# Set session
 		session["username"] = data["username"]
 		session["mobile_number"] = mobile_number
-		session["code_pending"] = False
 		return {"success": login_success, "error": error}
 	else:
 		# Display error
@@ -90,9 +89,7 @@ def login_route_post():
 @app.route("/authenticate", methods=["GET"])
 @check_session(page="authenticate")
 def authenticate_route_get():
-	if not session["code_pending"]:
-		twilio_codes.send_code(session["mobile_number"])
-		session["code_pending"] = True
+	twilio_codes.send_code(session["mobile_number"])
 	return render_template("authenticate.html")
 
 
@@ -105,7 +102,6 @@ def authenticate_route_post():
 		# Checks if verification was successful
 		if verification_status:
 			session["verified"] = True
-			session["code_pending"] = False
 			return flask.redirect("/landing")
 		else:
 			return render_template("authenticate.html", error=True)
@@ -114,10 +110,8 @@ def authenticate_route_post():
 @app.route("/resend-code", methods=["POST"])
 @check_session(page="resend")
 def resend_route():
-	print("Status;", session["mobile_number"])
 	if session["mobile_number"]:
 		twilio_codes.send_code(session["mobile_number"])
-		session["code_pending"] = True
 		return {"success":  True, "error": None}
 	else:
 		return {"success": False, "error": "Code could not be sent."}
