@@ -6,20 +6,30 @@
 
 {% block content %}
 
-<p>The login page</p>
+<div class="center">
 
-<form id="form">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" name="login_submit" id="login_submit" value="Login">
-</form>
+    <!-- Accepts user input -->
+    <form id="form">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="login_submit" id="login_submit" value="Login">
+    </form>
 
-<div class="alert alert-info" style="display: none;"></div>
-<div class="alert alert-error" style="display: none;"></div>
+    <!-- Navigation information -->
+    <div>
+        <p>Don't have an account?</p>
+        <a href="{{ url_for('register_route_get') }}"><button class="nav_btn">Register</button></a>
+    </div>
 
+    <!-- Displays any errors -->
+    <div class="alert alert-info" style="display: none;"></div>
+    <div class="alert alert-error" style="display: none;"></div>
 
-{% block javascript %}
-<script src="{{url_for('static', filename='login.js')}}"> </script>
-{% endblock %}
+    <!-- Links JavaScript for fetch API -->
+    {% block javascript %}
+    <script src="{{url_for('static', filename='login.js')}}"> </script>
+    {% endblock %}
+
+</div>
 
 {% endblock %}

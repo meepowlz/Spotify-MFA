@@ -1,6 +1,6 @@
 <!--
 Base HTML file with header displayed across pages
-Contains basic information about the program
+Contains basic information about the program that persists
 -->
 
 <!DOCTYPE html>
@@ -15,23 +15,41 @@ Contains basic information about the program
 </head>
 <body>
 
-<!-- Page Header -->
+
+<!--
+Page Header
+Contains title and navigation buttons
+-->
+
 
 <header>
-    <div class="left_header">
-        <img src="/static/assets/Spotify_Icon_RGB_Green.png" width="70px" class="header_padding">
-        <h1 class="header_padding">Spotify Conceptual 2-FA</h1>
+
+    <div class="left_header header_padding">
+        <a href="{{ url_for('home_route') }}"><img src="/static/assets/Spotify_Icon_RGB_Green.png" width="55px" class="header_elements_padding"></a>
+        <a href="{{ url_for('home_route') }}"><h2 class="header_elements_padding">Spotify Conceptual 2-FA</h2></a>
     </div>
 
-    <div class="right_header">
-        <a href="http://localhost:8080/login" class="header_padding"><button class="header_btn">Login</button></a>
-        <a href="http://localhost:8080/register" class="header_padding"><button class="header_btn">Register</button></a>
+
+    <div class="right_header header_padding">
+        <a href="{{ url_for('login_route_get') }}" class="header_elements_padding"><button class="header_btn">Login</button></a>
+        <a href="{{ url_for('register_route_get') }}" class="header_elements_padding"><button class="header_btn">Register</button></a>
+        <a href="{{ url_for('landing_route') }}" class="header_elements_padding"><img src="/static/assets/white_account_icon.png" height="40px"></a>
         <!-- Add account button with person clipart -->
     </div>
+
 </header>
 
-<!-- Extends HTML template -->
+<!--
+Extends HTML template
+Content inside varies page by page
+-->
+
 {% block content %}
+
+<!-- Project description on home page -->
+<div class="center">
+    <p>Project description</p>
+</div>
 
 {% endblock %}
 
