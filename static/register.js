@@ -25,9 +25,10 @@ function process(event) {
     const phoneNumber = phoneInput.getNumber();
 
     if (phoneInput.isValidNumber()){
-        // Displays confirmation message
+        /* Displays confirmation message
         info.style.display = "";
         info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+         */
 
         // Submits the formatted phone number
         data["mobile_number"] = phoneNumber;
