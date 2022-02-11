@@ -8,16 +8,17 @@
 {% block content %}
 
     <!-- Accepts user input for registering a new user -->
+    <div class="main_content_box">
     <h2 class="center">Register</h2>
     <div class="center">
         <form id="form">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="center input_text" required>
+            <input type="text" name="username" id="username" class="center input_text" minlength="8">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="center input_text" required>
+            <input type="password" name="password" id="password" class="center input_text" minlength="8" required>
             <label for="mobile_number">Mobile Number</label>
             <div class="center" style="margin-top:15px;">
-                <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off" class="input_mobile">
+                <input type="tel" name="mobile_number" id="mobile_number" autocomplete="off" class="input_mobile" required>
             </div>
             <div class="center">
                 <input type="submit" name="register_submit" id="register_submit" value="Register" class="form_submit">
@@ -26,7 +27,9 @@
     </div>
 
     <!-- Displays any errors -->
-    <div class="alert alert-error center" style="display:none;"></div>
+    <div class="center">
+        <h3 class="alert alert-error error_display" style="display:none;"></h3>
+    </div>
 
     <!-- Navigation information -->
     <div>
@@ -34,6 +37,7 @@
         <div class="center">
             <a href="{{ url_for('login_route_get') }}"><button class="nav_btn center">Login</button></a>
         </div>
+    </div>
     </div>
 
     <!-- Links JavaScript for fetch API -->

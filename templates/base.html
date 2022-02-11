@@ -52,18 +52,30 @@ Contains basic information about the program that persists
     {% block content %}
 
     <!-- Project description on home page -->
-    <h2 class="center">Spotify Conceptual 2-FA</h2>
-    <h3 class="center">Features:</h3>
-    <div class="center">
-    <ul>
-        <li>SMS-based authentication, powered by Twilio</li>
-        <li>Phone number verification</li>
-        <li>Password protection</li>
-    </ul>
+    <div class="main_content_box">
+        <h2 class="center">Spotify Conceptual MFA</h2>
+        <h3 class="center">Features:</h3>
+        <div class="center">
+        <ul>
+            <li>Local user database storage</li>
+            <li>Unique username and mobile number constraints</li>
+            <li>Mobile number verification system to prevent fake number usage</li>
+            <li>Country code mobile number dropdown for ease of use</li>
+            <li>Password hashing to secure data</li>
+            <li>Fetch API and JSON data used to more securely transmit data</li>
+            <li>6-Digit SMS code verification used to authenticate users</li>
+            <li>Powered by
+                <a href="https://www.twilio.com/" class="link">Twilio</a>,
+                <a href="https://flask.palletsprojects.com/en/2.0.x/" class="link">Flask</a>, and
+                <a href="https://sqlite.org/index.html" class="link">SQLite3</a>
+            </li>
+        </ul>
+        </div>
+        <div class="center">
+            <a href="https://github.com/meepowlz/Spotify-MFA" target="_blank"><button class="center nav_btn">GitHub</button></a>
+        </div>
     </div>
-    <div class="center">
-        <a href="https://github.com/meepowlz/Spotify-MFA" target="_blank"><button class="center nav_btn">GitHub</button></a>
-    </div>
+
 
     {% endblock %}
 

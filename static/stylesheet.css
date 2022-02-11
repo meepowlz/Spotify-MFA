@@ -55,27 +55,23 @@ header {
     align-items: center;
 }
 
-.content_box {
+.error_display {
+    padding: 15px;
     border-style: solid;
+    border-color: red;
+    border-radius: 20px;
 }
 
 .header_btn {
     border-color: #FFFFFF;
 }
 
-.header_padding {
-    padding: 0 25px;
-}
-
 .header_elements_padding {
     padding: 0 10px;
 }
 
-.left_header {
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 50%;
+.header_padding {
+    padding: 0 25px;
 }
 
 .form_submit {
@@ -104,10 +100,24 @@ header {
     border-radius: 20px;
 }
 
-.main_content_box {
-    margin: 25px;
-    border-style: solid;
+.left_header {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
 }
+
+.link {
+    text-decoration: underline;
+    color: blue;
+}
+
+.main_content_box {
+    margin: 15px;
+    padding: 10px;
+    border-style: hidden;
+}
+
 .nav_btn {
     border-color: #191414;
 }
