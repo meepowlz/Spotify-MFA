@@ -3,13 +3,12 @@ import os
 import flask
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session
+from flask_session import Session
 
 import init_database
 import mod_database
 import twilio_codes
 from decorators import check_session
-from flask_session import Session
-
 
 # Creates users table if it doesn't exist
 init_database.main()
@@ -19,7 +18,6 @@ load_dotenv()
 
 
 # Flask application
-# Add secret key?
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
@@ -29,11 +27,14 @@ Session(app)
 port = 8080
 
 
+# Flask routes
+
 @app.route("/")
 @app.route("/home")
 def home_route():
-	# resets session (temporary)
+	# Resets session for demonstration purposes
 	session["username"] = None
+	session["verified"] = False
 	return render_template("base.html")
 
 
@@ -49,7 +50,11 @@ def register_route_post():
 	# Get data from user input
 	data = request.get_json()
 	# Attempt to register a new user
-	registration_success, mobile_number, error = mod_database.register(data["username"], data["password"], data["mobile_number"])
+	registration_success, mobile_number, error = mod_database.register(
+		data["username"],
+		data["password"],
+		data["mobile_number"]
+	)
 	# Checks if registration was successful
 	if registration_success:
 		# Set session
@@ -96,15 +101,15 @@ def authenticate_route_get():
 @app.route("/authenticate", methods=["POST"])
 @check_session(page="authenticate")
 def authenticate_route_post():
-	if request.method == "POST":
-		# Attempts to verify code input
-		verification_status = twilio_codes.check_code(request.form["code_textbox"])
-		# Checks if verification was successful
-		if verification_status:
-			session["verified"] = True
-			return flask.redirect("/landing")
-		else:
-			return render_template("authenticate.html", error=True)
+	# Attempts to verify code input
+	verification_status = twilio_codes.check_code(request.form["code_textbox"])
+	# Checks if verification was successful
+	if verification_status:
+		print("VERIFIED")
+		session["verified"] = True
+		return flask.redirect("/landing")
+	else:
+		return render_template("authenticate.html", error=True)
 
 
 @app.route("/resend-code", methods=["POST"])

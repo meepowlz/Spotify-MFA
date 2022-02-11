@@ -1,3 +1,8 @@
+/*
+Handles submission of login credentials
+using fetch API
+ */
+
 const error = document.querySelector(".alert-error");
 
 function process(event) {

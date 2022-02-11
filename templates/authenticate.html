@@ -3,6 +3,7 @@ Authentication page to verify user via SMS 2-FA
 Allows the user to enter the code they received at their phone number
 -->
 
+<!-- Extends base file -->
 {% extends "base.html" %}
 
 {% block title %}Authenticate | Spotify 2-FA{% endblock %}
@@ -36,24 +37,8 @@ Allows the user to enter the code they received at their phone number
 JavaScript to control authentication code submission,
 resending codes, and displaying errors if authentication failed
 -->
-<script>
-    function resend() {
-        let error = document.getElementById("error-message-resend")
-        fetch("http://localhost:8080/resend-code", {
-            method: "POST",
-        }).then(response => {
-        response.json().then(data => {  // parse JSON
-                const success = data.success
-                const errorMessage = data.error
-                if (success === false) {  // redirect if login was successful
-                    error.style.display = "";
-                    error.innerHTML = errorMessage
-                }
-            })
-        }).catch(error => {
-            error.style.display = "";
-            error.innerHTML = "Unable to resend code"
-        })
-    }
-</script>
+    {% block javascript %}
+    <script src="{{ url_for('static', filename='authenticate.js') }}"> </script>
+    {% endblock %}
+
 {% endblock %}

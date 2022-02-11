@@ -3,13 +3,14 @@ The page the user lands on after successful login and authentication
 Contains username and basic information
 -->
 
+<!-- Extends base file -->
 {% extends "base.html" %}
 
 {% block title %}Landing | Spotify 2-FA{% endblock %}
 
 {% block content %}
 
-<!-- User account information -->
+<!-- User account information  & logout-->
 
 <h3 class="center">You are logged in as: {{ username }}</h3>
 <div class="center">

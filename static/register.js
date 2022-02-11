@@ -1,7 +1,7 @@
 /*
 JavaScript for mobile number input from
 https://www.twilio.com/blog/international-phone-number-input-html-javascript
-JavaScript for mobile number validation (NOT INCLUDED ATM) from
+JavaScript for mobile number validation from
 https://www.twilio.com/blog/validate-phone-number-input
 */
 

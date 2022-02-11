@@ -1,7 +1,8 @@
 import sqlite3
+
 import bcrypt
 
-
+# Connects to database
 db = sqlite3.connect("database.db", check_same_thread=False)
 
 
@@ -24,7 +25,7 @@ def dict_factory(cursor, row):
 	"""
 	row_dict = {}
 	for index, column in enumerate(cursor.description):  # iterate through every column and get an index of it's position
-		row_dict[column[0]] = row[index] # set the key equal to the column name, and value to the columns data in the row
+		row_dict[column[0]] = row[index]  # set the key equal to the column name, and value to the columns' data in the row
 	return row_dict
 
 
@@ -36,7 +37,7 @@ db.row_factory = dict_factory
 # Figure out what errors get raised to tell user that username/number already in use?
 def register(new_username, new_password, new_mobile_number):
 	"""
-
+	Registers a new user
 	:param new_username: str
 	:param new_password: str
 	:param new_mobile_number: str
@@ -65,11 +66,5 @@ def verify_credentials(username, password):
 	if user:
 		pass_match = bcrypt.checkpw(password.encode("UTF-8"), user["password"])
 		if pass_match:
-			print("yaycheese :)")
-			print(user["mobile_number"])
 			return True, user["mobile_number"], None
-		else:
-			print("moldy cheese :/")
-	else:
-		print("nocheese :(")
 	return False, None, "Username or Password is incorrect"

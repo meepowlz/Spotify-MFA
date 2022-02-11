@@ -1,6 +1,7 @@
-from twilio.rest import Client
 import os
+
 from dotenv import load_dotenv
+from twilio.rest import Client
 
 # Allows environment variables to be accessed
 load_dotenv()
@@ -16,7 +17,7 @@ client = Client(account_sid, auth_token)
 # code snippet from https://www.twilio.com/docs/verify/api/verification
 # sends a verification code to the receiving number
 def send_code(receiving_num):
-	verification = client.verify \
+	client.verify \
 		.services(os.getenv("VERIFICATION_SID")) \
 		.verifications \
 		.create(to=receiving_num, channel="sms")
